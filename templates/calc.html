@@ -28,8 +28,12 @@
 <body>
 <!-- bootstrap requires a 'container' div around content -->
 <div class="container">
+<!--Cannot get this to load from local source. Any ideas?
+<img src = "../logorusa.png"></img>
+-->
 
-<h1>ACP Brevet Closing times</h1>
+<!--Cannot seems to style image with standard CSS principles. Do we need special bootstrap stuff?-->
+<h1>ACP Brevet Closing times<img src="http://www.rusa.org/Images/logorusa.gif"></img></h1>
 
   <!--
   -- If there are any warnings or other messages from a prior
@@ -51,47 +55,65 @@
 
 <!-- Design on bootstrap grid -->
 <form role="form">
-<div class="row">
-  <div class="col-md-2">
-    <input type="text" class="form-control"
-     name="miles" value="Distance in miles"/>
-  </div>
-  <div class="col-md-4">
-    <input type="text" class="form-control"
-      name="location" value="location" />
-  </div>
-  <div class="col-md-4">
-    <span class="times form-control">(times)</span>
-  </div>
-</div>
 
-<div class="row">
-  <div class="col-md-2">
-    <input type="text" class="form-control"
-     name="miles" value="Distance in miles"/>
-  </div>
-  <div class="col-md-4">
-    <input type="text" class="form-control"
-      name="location" value="location" />
-  </div>
-  <div class="col-md-4">
-    <span class="times form-control">(times)</span>
-  </div>
-</div>
+<!--Create input forms-->
 
+<!--Create header inputs-->
 <div class="row">
+<div class="col-xs-12">
+   <label class="col-xs-3">Starting date and time:</label>
+      <input class="col-md-2" id="date" placeholder="YYYY/MM/DD">
+      <input class="col-md-2" id="time" placeholder="HH:mm">
+</div>
+</div>
+<br>
+<div class="row">
+<div class="col-xs-12">
+   <label class="col-xs-3">Race distance:</label>
+      <select class="control-label col-md-2" id="RaceDistance">
+          <option>200</option>
+          <option>300</option>
+          <option>400</option>
+          <option>600</option>
+          <option>1000</option>
+      </select>
+</div>
+</div>
+<br>
+<div class="row">
+<div class="col-xs-12">
+   <label class="col-xs-3">Input distances unit:</label>
+      <select class="control-label col-md-1.5" id="InUnits">
+         <option>kilometers</option>
+         <option>miles</option>
+      </select>
+</div>
+</div>
+<br><br>
+
+
+{% for i in range(10) %}
+<!--Added index number before to make interface more clear when using on mobile version. How could I make this align perfecting with each line?-->
+<b>Brevet #{{ i+1 }}</b>
+<div class="row" id ="{{ i+1 }}">
   <div class="col-md-2">
     <input type="text" class="form-control"
-     name="miles" value="Distance in miles"/>
+     name="miles" placeholder="Brevet Distance"/>
   </div>
   <div class="col-md-4">
     <input type="text" class="form-control"
-      name="location" value="location" />
+      name="location" placeholder="location" />
   </div>
-  <div class="col-md-4">
-    <span class="times form-control">(times)</span>
+  <div class="col-md-3">
+    <span class="times form-control">(starting times)</span>
+  </div>
+  <div class="col-md-3">
+    <span class="closingtimes form-control">(closing times)</span>
   </div>
 </div>
+{% endfor %}
+
+
 </form>
 
 <script type="text/javascript">
@@ -102,6 +124,9 @@
    // Do the following when the page is finished loading
 
       // When a field named 'miles' is changed ...
+
+
+      //pass open times
       $('input[name="miles"]').change(
           // ... execute this function
           function(){
@@ -109,22 +134,50 @@
 
               var target = $(this).parents(".row").find(".times");
 
-              // DEBUG: How do I replace the 'times' field?
-              // alert("Content of the field I want to change: " +
-              //   target.html());
+              var closingtarget = $(this).parents(".row").find(".closingtimes");
+
+              //Other variables
+              var raceDistance = $('#RaceDistance option:selected').text();
+              var inputUnit = $('#InUnits option:selected').text();
+              var date = $('#date').val();
+              var time = $('#time').val();
+
+              //Make sure Brevet distance is within range of Race distance. If not, alert user of error
+              if (e_miles > raceDistance*1.2){
+                alert("ERROR: INVALID BREVET DISTANCE\n\n\nBrevet distance entered, "+e_miles.toString()+", is 20% larger than the entered race distance ("+raceDistance+").\n\n"+"Please enter a Brevet distance equal to or less than "+raceDistance*1.2+".");
+                return;
+
+                }
+
 
               // AJAX request
               $.getJSON($SCRIPT_ROOT + '/_calc_times',
                   // The object to pass to the server
-                  { miles: e_miles },
+                  {miles: e_miles,RaceDistance: raceDistance,date: date,time: time,inputUnit:inputUnit},
                   // The function to call with the response
                   function(data) {
-                     var times = data.result;
-                     // alert("Got a response: " +  times);
-                     target.text(times);
+
+                    //abort function if incorrect date was given
+                    if (data.dateError=="yes"){
+                      alert("ERROR: INVALID DATE\n\n\nDate given, "+date+", is invalid.\n\n"+"Please enter a valid date in format YYYY/MM/DD.")
+                      return
+                    }
+
+                    //abort function if incorrect time was given
+                    if (data.timeError=="yes"){
+                      alert("ERROR: INVALID TIME\n\n\nTime given, "+time+", is invalid.\n\n"+"Please enter a valid time in format HH:mm.")
+                      return
+                    }
+
+
+                     var openTime = data.openTime;
+                     var closeTime = data.closeTime;
+
+                     target.text(openTime);
+                     closingtarget.text(closeTime);
                   }); // End of the call to getJSON
           });  // End of the function to be called when field changes
-              
+
 
      });   // end of what we do on document ready
 
