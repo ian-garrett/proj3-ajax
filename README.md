@@ -18,7 +18,7 @@ This project essentially replaces the calculator at http://www.rusa.org/octime_a
 
 We have to catch certain exceptions in checkpoint distance when calculating opening and closing times.
 
-When a checkpoint distance was up to but no more then 20% greater than the brevet distance, the open and closing times were fixed at what they were calculated at when the checkpoint is EQUAL to the brevet distance. However, for certain brevet distances we have to add either 10 or 20 minutes to the closing time. If the brevet distance was set to either 200 or 1,000, we add 10 minutes to the closing time If the brevet distance was set to 400, we add 20 minutes to the closing time.
+When a checkpoint distance was up to but no more then 20% greater than the brevet distance, the open and closing times were fixed at what they were calculated at when the checkpoint is EQUAL to the brevet distance. However, for certain brevet distances we have to add either 10 or 20 minutes to the closing time. If the brevet distance was set to either 200 or 1,000, we add 10 minutes to the closing time. If the brevet distance was set to 400, we add 20 minutes to the closing time.
 
 
 
