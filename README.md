@@ -22,12 +22,12 @@ When a checkpoint distance was up to but no more then 20% greater than the breve
 
 
 
-## requirements.txt
-Flask==0.10.1
-Jinja2==2.8
-MarkupSafe==0.23
-Werkzeug==0.10.4
-arrow==0.6.0
-itsdangerous==0.24
-python-dateutil==2.4.2
+## requirements.txtn
+Flask==0.10.1 <br>
+Jinja2==2.8 <br>
+MarkupSafe==0.23 <br>
+Werkzeug==0.10.4 <br>
+arrow==0.6.0 <br>
+itsdangerous==0.24 <br>
+python-dateutil==2.4.2 <br>
 six==1.10.0
