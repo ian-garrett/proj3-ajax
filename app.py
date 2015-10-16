@@ -1,7 +1,7 @@
 """
-Very simple Flask web site, with one page
-displaying a course schedule.
-
+AUTHOR: Ian Garrett
+PROJECT: proj3-ajax
+COURSE: CIS399
 """
 
 import flask
@@ -111,7 +111,7 @@ def calc_times():
   except ValueError:
     return jsonify(timeError="yes", badTime=time)
 
-  #process special cases in which kmiles is above race distance by more than 20%
+  #process special cases in which kmiles is greater than or equal to race distance
   raceDistList = (200,300,400,600,1000)
 
   startAdditive = 0
@@ -222,33 +222,7 @@ def calc_times():
   endTime = (currentStart.replace(days=endaddDays ,hours=endaddhours, minutes=endaddminutes+endAdditive)).format("YYYY/MM/DD HH:mm")
   startTime = (currentStart.replace(days=startaddDays ,hours=startaddhours, minutes=startaddminutes)).format("YYYY/MM/DD HH:mm")
 
-  return jsonify(openTime=startTime,closeTime=endTime)#how do we convert this into arrow time? returns mixed dec IE 1.23
- 
-#################
-#
-# Functions used within the templates
-#
-#################
-
-@app.template_filter( 'fmtdate' )
-def format_arrow_date( date ):
-    try: 
-        normal = arrow.get( date )
-        return normal.format("ddd MM/DD/YYYY")
-    except:
-        return "(bad date)"
-
-@app.template_filter( 'fmttime' )
-def format_arrow_time( time ):
-    try: 
-        normal = arrow.get( time )
-        return normal.format("hh:mm")
-    except:
-        return "(bad time)"
-
-
-
-#############
+  return jsonify(openTime=startTime,closeTime=endTime)
 
 
 if __name__ == "__main__":
