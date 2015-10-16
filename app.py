@@ -133,7 +133,7 @@ def calc_times():
   maxSpeeds = [34,32,30,28,26]
 
 
-  #Select min and max speeds based on miles (should we display these for the user?
+  #Select min and max speeds based on miles
   if kmiles in range(0,200):
     minSpeed = minSpeeds[0]
     maxSpeed = maxSpeeds[0]

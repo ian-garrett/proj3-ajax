@@ -1,3 +1,6 @@
+Ian Garrett
+10/16/2015
+
 # proj3-ajax
 Reimplement the RUSA ACP controle time calculator with flask and ajax
 
@@ -7,15 +10,28 @@ That's "controle" with an 'e', because it's French, although "control" is also a
 a rider must obtain proof of passage, and control[e] times are the minimum and maximum times by which the rider must
 arrive at the location.  
 
-The algorithm for calculating controle times is described at http://www.rusa.org/octime_alg.html . The description is ambiguous, but the examples help.  Part of finishing this project is clarifying anything that is not clear about the requirements, and documenting it clearly. 
+The algorithm for calculating controle times is described at http://www.rusa.org/octime_alg.html .
 
-We are essentially replacing the calculator at http://www.rusa.org/octime_acp.html .  We can also use that calculator to clarify requirements.  
+This project essentially replaces the calculator at http://www.rusa.org/octime_acp.html .
 
 ## AJAX and Flask reimplementation
 
-The current RUSA controle time calculator is a Perl script that takes an HTML form and emits a text page. The reimplementation will fill in times as the input fields are filled.  Each time a distance is filled in, the corresponding open and close times should be filled in.   If no begin time has been provided, use 0:00 as the begin time. 
+We have to catch certain exceptions in checkpoint distance when calculating opening and closing times.
 
-I will leave much of the design to you.  
+When a checkpoint distance was up to but no more then 20% greater than the brevet distance, the open and closing times were fixed at what they were calculated at when the checkpoint is EQUAL to the brevet date. However, for certain brevet distances we have to add either 10 or 20 minutes to the closing time. If the brevet distance was set to either 200 or 1,000, we add 10 minutes to the closing time If the brevet distance was set to 400, we add 20 minutes to the closing time.
+
+
+
+## requirements.txt
+Flask==0.10.1
+Jinja2==2.8
+MarkupSafe==0.23
+Werkzeug==0.10.4
+arrow==0.6.0
+itsdangerous==0.24
+python-dateutil==2.4.2
+six==1.10.0
+
 
 ## Testing
 
