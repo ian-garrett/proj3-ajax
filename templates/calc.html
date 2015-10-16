@@ -33,7 +33,7 @@
 -->
 
 <!--Cannot seems to style image with standard CSS principles. Do we need special bootstrap stuff?-->
-<h1>ACP Brevet Closing times<img src="http://www.rusa.org/Images/logorusa.gif"></img></h1>
+<h1>ACP Brevet Opening/Closing times<img src="http://www.rusa.org/Images/logorusa.gif"></img></h1>
 
   <!--
   -- If there are any warnings or other messages from a prior
@@ -94,11 +94,11 @@
 
 {% for i in range(10) %}
 <!--Added index number before to make interface more clear when using on mobile version. How could I make this align perfecting with each line?-->
-<b>Brevet #{{ i+1 }}</b>
+<b>Checkpoint  #{{ i+1 }}</b>
 <div class="row" id ="{{ i+1 }}">
   <div class="col-md-2">
-    <input type="text" class="form-control"
-     name="miles" placeholder="Brevet Distance"/>
+    <input type="number" class="form-control"
+     name="miles" placeholder="Checkpoint"/>
   </div>
   <div class="col-md-4">
     <input type="text" class="form-control"
@@ -144,7 +144,7 @@
 
               //Make sure Brevet distance is within range of Race distance. If not, alert user of error
               if (e_miles > raceDistance*1.2){
-                alert("ERROR: INVALID BREVET DISTANCE\n\n\nBrevet distance entered, "+e_miles.toString()+", is 20% larger than the entered race distance ("+raceDistance+").\n\n"+"Please enter a Brevet distance equal to or less than "+raceDistance*1.2+".");
+                alert("ERROR: INVALID CHECKPOINT DISTANCE\n\n\nCheckpoint distance entered, "+e_miles.toString()+", is 20% larger than the entered Brevet ("+raceDistance+").\n\n"+"Please enter a Brevet distance equal to or less than "+raceDistance*1.2+".");
                 return;
 
                 }

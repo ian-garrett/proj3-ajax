@@ -95,6 +95,8 @@ def calc_times():
   if len(time)==0:
     time = '00:00'
 
+  warningList = ();
+
   #check if date given is valid, if not return appropriate error message to user
   try:
     testDate = date.split("/")
