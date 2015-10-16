@@ -31,8 +31,3 @@ arrow==0.6.0
 itsdangerous==0.24
 python-dateutil==2.4.2
 six==1.10.0
-
-
-## Testing
-
-A requirement of this project will be designing a systematic test suite. 
