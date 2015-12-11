@@ -1,5 +1,4 @@
-Ian Garrett
-10/16/2015
+Brevet Calculator live at http://ix.cs.uoregon.edu/~igarrett/cis322/htbin/proj3-ajax/app.cgi/
 
 # proj3-ajax
 Reimplement the RUSA ACP controle time calculator with flask and ajax
